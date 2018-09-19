@@ -76,6 +76,9 @@
 			font-size: 6vmin;
 			display: none;
 		}
+		.stale {
+			text-decoration: line-through;
+		}
 	</style>
 </head>
 
@@ -86,7 +89,6 @@
 			<div id="trend">
 				<div id="bgnow"></div>
 					<div id="arrowDiv"><img id="arrow" src=""/></div>
-					<div id="staleTime"></div>
 			</div>
 			<div id="clock"></div>
 			</div>
@@ -163,7 +165,10 @@
 			
 			// Time before data considered stale.
 			var staleMinutes = 13;										
-			var threshold = 1000 * 60 * staleMinutes;	
+			var threshold = 1000 * 60 * staleMinutes;
+			
+			// Toggle stale if necessary.
+			$('#bgnow').toggleClass('stale', (now - last > threshold));
 
 			// Generate and insert the clock.
 			var timeDivisor = (window.serverSettings.settings.timeFormat) ? window.serverSettings.settings.timeFormat : 12;
